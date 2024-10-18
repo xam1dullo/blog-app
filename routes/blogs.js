@@ -27,7 +27,7 @@ router.post
             return;
         }
 
-        res.status(200).send(`http://localhost:5000/uploads/${req.file.filename}`);
+        res.status(200).send(`http://3.68.219.212:3000/uploads/${req.file.filename}`);
 
     });
 
