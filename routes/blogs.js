@@ -1,128 +1,115 @@
-// routes/blogs.js
-
+// routes/blog.js
 const express = require('express');
 const router = express.Router();
-const Blog = require('../models/blog');
-const multer = require('multer');
+const Title = require('../models/title.model');
 
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-
-        cb(null, uniqueSuffix + "." + file.originalname.split(".")[file.originalname.split(".").length - 1])
-    }
-})
-const upload = multer({ storage: storage })
-
-
-
-router.post
-    ('/upload', upload.single('image'), (req, res) => {
-        if (!req.file) {
-            res.status(400).send('No file uploaded.'); req.file.filename
-            return;
-        }
-
-        res.status(200).send(`http://3.68.219.212:3000/uploads/${req.file.filename}`);
-
-    });
-
-
-router.post('/:id/images', upload.single('image'), async (req, res) => {
-    try {
-        const blog = await Blog.findById(req.params.id);
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog topilmadi' });
-        }
-
-        // Yuklangan rasmni blog postiga qo'shish
-        blog.images.push(`http://localhost:5000/uploads/${req.file.filename}`);
-        await blog.save();
-        res.json(blog);
-    } catch (err) {
-        console.error(err);
-        if (err instanceof multer.MulterError) {
-            // Multer xatoliklarini boshqarish
-            return res.status(400).json({ message: err.message });
-        } else if (err.message === 'Faqat rasm fayllari ruxsat etilgan') {
-            return res.status(400).json({ message: err.message });
-        }
-        res.status(500).json({ message: err.message });
-    }
-});
-
-
-router.post('/', async (req, res) => {
-    try {
-        const blog = new Blog(req.body);
-        const savedBlog = await blog.save();
-        res.status(201).json(savedBlog);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
 
 router.get('/', async (req, res) => {
     try {
-        const blogs = await Blog.find();
-        res.json(blogs);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+        const blogs = await Title.aggregate([
+            { $match: { status: 'active' } },
+            {
+                $lookup: {
+                    from: 'contents', // Collection name in MongoDB (usually lowercase plural)
+                    localField: '_id',
+                    foreignField: 'title',
+                    as: 'contents'
+                }
+            }
+        ]);
+        res.status(200).json(blogs);
+    } catch (error) {
+        console.error('Error fetching blogs:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
+// GET /api/blog/:slug - Retrieve a single blog by its slug with contents using aggregation
 router.get('/:slug', async (req, res) => {
     try {
-        const blog = await Blog.findOne({ slug: req.params.slug });
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog topilmadi' });
+        const blog = await Title.aggregate([
+            { $match: { slug: req.params.slug, status: 'active' } },
+            {
+                $lookup: {
+                    from: 'contents',
+                    localField: '_id',
+                    foreignField: 'title',
+                    as: 'contents'
+                }
+            }
+        ]);
+        if (blog.length === 0) {
+            return res.status(404).json({ message: 'Blog not found' });
         }
-        res.json(blog);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(200).json(blog[0]);
+    } catch (error) {
+        console.error('Error fetching the blog:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-router.put('/:id', async (req, res) => {
-    try {
-        const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        if (!updatedBlog) {
-            return res.status(404).json({ message: 'Blog topilmadi' });
-        }
-        res.json(updatedBlog);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
 
-router.delete('/:id', async (req, res) => {
-    try {
-        const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
-        if (!deletedBlog) {
-            return res.status(404).json({ message: 'Blog topilmadi' });
-        }
-        res.json({ message: 'Blog o\'chirildi' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+// router.get('/', async (req, res) => {
+//     try {
+//         const blogs = await Title.find({ status: 'active' })
+//             .populate({
+//                 path: 'contents',
+//                 strictPopulate: false // Disable strictPopulate for this populate call
+//             })
+//             .exec();
+//         res.status(200).json(blogs);
+//     } catch (error) {
+//         console.error('Error fetching blogs:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
-router.post('/:id/like', async (req, res) => {
-    try {
-        const blog = await Blog.findById(req.params.id);
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog topilmadi' });
-        }
-        blog.likes += 1;
-        await blog.save();
-        res.json(blog);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+// // GET /api/blog/:slug - Retrieve a single blog by its slug with contents
+// router.get('/:slug', async (req, res) => {
+//     try {
+//         const blog = await Title.findOne({ slug: req.params.slug, status: 'active' })
+//             .populate({
+//                 path: 'contents',
+//                 strictPopulate: false // Disable strictPopulate for this populate call
+//             })
+//             .exec();
+//         if (!blog) {
+//             return res.status(404).json({ message: 'Blog not found' });
+//         }
+//         res.status(200).json(blog);
+//     } catch (error) {
+//         console.error('Error fetching the blog:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+// GET /api/blog - Barcha bloglarni olish (har bir blogda title va contents)
+// router.get('/', async (req, res) => {
+//     try {
+//         const blogs = await Title.find({ status: 'active' })
+//             .populate('contents') // Populate the virtual 'contents' field
+//             .exec();
+//         res.status(200).json(blogs);
+//     } catch (error) {
+//         console.error('Error fetching blogs:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
+// // GET /api/blog/:slug - Bitta blogni slug orqali olish (title va contents)
+// router.get('/:slug', async (req, res) => {
+//     try {
+//         const blog = await Title.findOne({ slug: req.params.slug, status: 'active' })
+//             .populate('contents') // Populate the virtual 'contents' field
+//             .exec();
+//         if (!blog) {
+//             return res.status(404).json({ message: 'Blog not found' });
+//         }
+//         res.status(200).json(blog);
+//     } catch (error) {
+//         console.error('Error fetching the blog:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
 module.exports = router;
