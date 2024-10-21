@@ -1,10 +1,8 @@
-// routes/titles.js
-const express = require('npm:express');
-const router = express.Router();
-const Title = require('../models/title.model');
-const Content = require('../models/content.model');
+import express  from 'npm:express';
+import Title  from '../models/title.model';
+import Content  from '../models/content.model';
 
-// CREATE Title
+const router =   express.Router();
 router.post('/', async (req, res) => {
   try {
     const { title, status } = req.body;

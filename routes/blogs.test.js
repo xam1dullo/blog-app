@@ -1,9 +1,10 @@
 // routes/blogs.js
 
-const express = require('express');
+import express from 'express'
+import Blog from '../models/blog'
+import multer from 'multer'
+
 const router = express.Router();
-const Blog = require('../models/blog');
-const multer = require('multer');
 
 
 const storage = multer.diskStorage({

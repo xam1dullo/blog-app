@@ -1,8 +1,9 @@
 // routes/contents.js
-const express = require('npm:express');
-const router = express.Router();
-const Content = require('../models/content.model');
-const Title = require('../models/title.model');
+import express from 'npm:express';
+import Content from '../models/content.model';
+import Title from '../models/title.model';
+
+import router from express.Router();
 
 // CREATE Content
 router.post('/', async (req, res) => {

@@ -1,6 +1,6 @@
-const express = require('npm:express');
+import express from 'npm:express'
 const router = express.Router();
-const upload = require("../common/multer")
+import upload from "../common/multer"
 
 
 

@@ -1,15 +1,15 @@
-const express = require('npm:express');
-const mongoose = require('npm:mongoose');
-const dotenv = require('npm:dotenv');
-const morgan = require('npm:morgan');
-const bodyParser = require('npm:body-parser');
-const path = require("node:path")
-const cors = require('npm:cors');
+import express from 'npm:express'
+import mongoose from 'npm:mongoose'
+import dotenv from 'npm:dotenv'
+import morgan from 'npm:morgan'
+import bodyParser from 'npm:body-parser'
+import path from "node:path"
+import cors from 'npm:cors'
 
-const blogRoutes = require('./routes/blogs');
-const titleRoutes = require("./routes/titles")
-const contentRoutes = require("./routes/contents")
-const imagesRoutes = require("./routes/images")
+import blogRoutes from './routes/blogs';
+import titleRoutes from "./routes/titles"
+import contentRoutes from "./routes/contents"
+import imagesRoutes from "./routes/images"
 
 dotenv.config();
 

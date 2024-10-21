@@ -1,7 +1,7 @@
 // models/Blog.js
 
-const mongoose = require('npm:mongoose');
-const slugify = require('npm:slugify');
+import mongoose from 'npm:mongoose'
+import slugify from 'npm:slugify'
 
 // const ContentSchema = new mongoose.Schema({
 //     type: {
