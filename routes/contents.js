@@ -1,7 +1,7 @@
 // routes/contents.js
 import express from 'npm:express';
-import Content from '../models/content.model';
-import Title from '../models/title.model';
+import Content from '../models/content.model.js';
+import Title from '../models/title.model.js';
 
 import router from express.Router();
 

@@ -1,8 +1,8 @@
 // routes/blogs.js
 
 import express from 'express'
-import Blog from '../models/blog'
 import multer from 'multer'
+import Blog from '../models/blog.js'
 
 const router = express.Router();
 

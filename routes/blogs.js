@@ -1,7 +1,7 @@
 // routes/blog.js
 const express = require('npm:express');
 const router = express.Router();
-const Title = require('../models/title.model');
+const Title = require('../models/title.model.js');
 
 
 router.get('/', async (req, res) => {

@@ -1,6 +1,6 @@
 import express from 'npm:express'
 const router = express.Router();
-import upload from "../common/multer"
+import upload from "../common/multer.js"
 
 
 

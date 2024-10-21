@@ -6,10 +6,10 @@ import bodyParser from 'npm:body-parser'
 import path from "node:path"
 import cors from 'npm:cors'
 
-import blogRoutes from './routes/blogs';
-import titleRoutes from "./routes/titles"
-import contentRoutes from "./routes/contents"
-import imagesRoutes from "./routes/images"
+import blogRoutes from './routes/blogs.js';
+import titleRoutes from "./routes/titles.js"
+import contentRoutes from "./routes/contents.js"
+import imagesRoutes from "./routes/images.js"
 
 dotenv.config();
 

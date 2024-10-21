@@ -1,6 +1,6 @@
 import express  from 'npm:express';
-import Title  from '../models/title.model';
-import Content  from '../models/content.model';
+import Title  from '../models/title.model.js';
+import Content  from '../models/content.model.js';
 
 const router =   express.Router();
 router.post('/', async (req, res) => {
