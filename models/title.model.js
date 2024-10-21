@@ -33,4 +33,4 @@ TitleSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('Title', TitleSchema);
+export default mongoose.model('Title', TitleSchema);

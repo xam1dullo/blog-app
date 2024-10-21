@@ -82,4 +82,4 @@ BlogSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = mongoose.model('Blog', BlogSchema);
+export default mongoose.model('Blog', BlogSchema);
