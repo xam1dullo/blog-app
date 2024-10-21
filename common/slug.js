@@ -1,4 +1,4 @@
-const slugify = require("npm:slugify")
+import slugify from "npm:slugify"
 
 const generateSlug = (str) => {
 
