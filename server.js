@@ -35,12 +35,14 @@ app.use('/api/images', imagesRoutes);
 
 
 // MongoDB ulanishi
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(Deno.env.get("MONGODB_URI"))
     .then(() => console.log('MongoDB ga ulanish muvaffaqiyatli'))
     .catch(err => console.error('MongoDB ulanish xatosi:', err));
 
 // Serverni ishga tushurish
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
+const PORT = Deno.env.get("PORT") || "8000";
+
 app.listen(PORT, () => {
     console.log(`Server ${PORT} portda ishlamoqda`);
 });
