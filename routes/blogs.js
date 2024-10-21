@@ -1,7 +1,9 @@
 // routes/blog.js
-const express = require('npm:express');
+import  express from 'npm:express';
+
 const router = express.Router();
-const Title = require('../models/title.model.js');
+
+import Title from '../models/title.model.js';
 
 
 router.get('/', async (req, res) => {
