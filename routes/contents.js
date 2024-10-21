@@ -1,5 +1,5 @@
 // routes/contents.js
-const express = require('express');
+const express = require('npm:express');
 const router = express.Router();
 const Content = require('../models/content.model');
 const Title = require('../models/title.model');

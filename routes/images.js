@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('npm:express');
 const router = express.Router();
 const upload = require("../common/multer")
 

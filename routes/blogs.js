@@ -1,5 +1,5 @@
 // routes/blog.js
-const express = require('express');
+const express = require('npm:express');
 const router = express.Router();
 const Title = require('../models/title.model');
 

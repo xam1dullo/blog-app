@@ -1,12 +1,10 @@
-// server.js
-
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
+const express = require('npm:express');
+const mongoose = require('npm:mongoose');
+const dotenv = require('npm:dotenv');
+const morgan = require('npm:morgan');
+const bodyParser = require('npm:body-parser');
 const path = require("node:path")
-const cors = require('cors');
+const cors = require('npm:cors');
 
 const blogRoutes = require('./routes/blogs');
 const titleRoutes = require("./routes/titles")
