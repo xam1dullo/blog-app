@@ -12,7 +12,7 @@ import contentRoutes from "./routes/contents.js"
 import imagesRoutes from "./routes/images.js"
 
 dotenv.config();
-29:46
+
 const app = express();
 
 // Middleware
