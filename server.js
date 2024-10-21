@@ -12,7 +12,7 @@ import contentRoutes from "./routes/contents.js"
 import imagesRoutes from "./routes/images.js"
 
 dotenv.config();
-
+29:46
 const app = express();
 
 // Middleware
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 
 // Routes
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(import.meta.dirname, 'uploads')));
 
 app.use('/api/blogs', blogRoutes);
 app.use('/api/titles', titleRoutes);
