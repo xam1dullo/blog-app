@@ -3,7 +3,7 @@ import express from 'npm:express';
 import Content from '../models/content.model.js';
 import Title from '../models/title.model.js';
 
-import router from express.Router();
+const router = express.Router();
 
 // CREATE Content
 router.post('/', async (req, res) => {
