@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 
 
 // Routes
-app.use('/uploads', express.static(path.join(import.meta.dirname, 'uploads')));
+app.use('/uploads', express.static(path.join("./", 'uploads')));
 
 app.use('/api/blogs', blogRoutes);
 app.use('/api/titles', titleRoutes);
