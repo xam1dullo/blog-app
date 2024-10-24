@@ -45,8 +45,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Serverni ishga tushurish
 // const PORT = process.env.PORT || 5000;
-const PORT = process.env.PORT || 80
-
+const PORT = process.env.PORT || 3000
 
 // HTTPS serverni ishga tushirish
 
