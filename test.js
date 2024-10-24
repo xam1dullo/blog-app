@@ -20,3 +20,6 @@
 //     else console.log(result);
 //   });
 // });
+
+
+console.log(import.meta.dirname)

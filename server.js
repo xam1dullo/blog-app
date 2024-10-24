@@ -5,9 +5,6 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import path from "node:path"
 import cors from 'cors'
-import https from 'https'
-import http from 'http'
-import fs from 'node:fs'
 
 import blogRoutes from './routes/blogs.js';
 import titleRoutes from "./routes/titles.js"
